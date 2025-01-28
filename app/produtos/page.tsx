@@ -39,18 +39,17 @@ export default function ProdutosPage() {
     setCart([...cart, produto]);
   }
 
-  // Remove um produto do carrinho
   function removerDoCarrinho(produtoId: string) {
     setCart(cart.filter((produto) => produto.id !== produtoId));
   }
 
-  // Finaliza a compra
-// Finaliza a compra
+
 async function comprarProdutos() {
   if (cart.length === 0) {
     setMensagem('O carrinho está vazio!');
     return;
   }
+
 
   try {
     const res = await fetch('/api/deisishop/buy', {
