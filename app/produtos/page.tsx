@@ -45,37 +45,39 @@ export default function ProdutosPage() {
   }
 
   // Finaliza a compra
-  async function comprarProdutos() {
-    if (cart.length === 0) {
-      setMensagem('O carrinho está vazio!');
+// Finaliza a compra
+async function comprarProdutos() {
+  if (cart.length === 0) {
+    setMensagem('O carrinho está vazio!');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/deisishop/buy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ products: cart }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      setMensagem(errorData.error || 'Erro ao realizar a compra.');
       return;
     }
 
-    try {
-      const res = await fetch('/api/deisishop/buy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ products: cart }),
-      });
+    const data = await res.json();
+    setMensagem(`Compra realizada com sucesso! ID da compra: ${data.orderId}`);
+    setCart([]); // Limpa o carrinho após a compra
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        setMensagem(errorData.error || 'Erro ao realizar a compra.');
-        return;
-      }
-
-      const data = await res.json();
-      setMensagem(`Compra realizada com sucesso! ID da compra: ${data.orderId}`);
-      setCart([]); // Limpa o carrinho após a compra
-
-      // Remove a mensagem automaticamente após 5 segundos
-      setTimeout(() => setMensagem(null), 5000);
-    } catch (error) {
-      setMensagem('Erro ao conectar com o servidor.');
-    }
+    // Remove a mensagem automaticamente após 5 segundos
+    setTimeout(() => setMensagem(null), 5000);
+  } catch {
+    setMensagem('Erro ao conectar com o servidor.');
   }
+}
+
 
   return (
     <main>
@@ -87,7 +89,7 @@ export default function ProdutosPage() {
             <article key={`${produto.id}-${index}`} className="product-item">
               <img src={produto.image} alt={produto.title} />
               <h3>{produto.title}</h3>
-              <p>Preço: {produto.price}€</p>
+              <p>Preço: {produto.price}€</p> 
               <button onClick={() => adicionarAoCarrinho(produto)}>
                 + Adicionar ao Carrinho
               </button>
