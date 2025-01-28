@@ -1,71 +1,128 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  /* Box Model */
   margin: 0;
   padding: 0;
-  height: 100vh;
-
-  /* Layout e Posicionamento */
+  font-family: 'Arial', sans-serif;
+  background: #121212;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  /* Fundo e Estética */
-  background: url('https://cdn.pixabay.com/photo/2016/06/02/02/33/triangles-1430105_1280.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  justify-content: center;
+  min-height: 100vh;
 }
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: #1db954; 
+}
+
+
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+header nav li {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  position: relative;
+}
+
+header nav a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  transition: width 0.3s ;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+}
+
+
 
 main {
-  /* Reset e Box Model */
-  width: 320px;
-  height: 450px;
+  width: 100%;
+  max-width: 1200px;
   padding: 20px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #262626;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 10px;
+  border-radius: 10px;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #ededed;
+}
+
+.product-card p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.product-card button {
+  background: #1db954;
+  border: none;
+  padding: 10px 15px;
   border-radius: 20px;
-  overflow-y: auto;
-
-  /* Fundo */
-  background: whitesmoke;
-}
-
-nav {
   color: white;
-}
-
-nav ul {
-  display: flex;
-  gap: 1rem;
-  padding: 0;
-  list-style: none;
-}
-
-nav li {
   font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
+.product-card button:hover {
+  background: #14843e;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #b3b3b3;
+  text-align: center;
+}
+
+footer span {
+  color: #1db954;
   font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
 }
