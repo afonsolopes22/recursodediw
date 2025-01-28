@@ -14,7 +14,6 @@ export default function ProdutosPage() {
   const [cart, setCart] = useState<Produto[]>([]);
   const [mensagem, setMensagem] = useState<string | null>(null);
 
-  // Carrega produtos da API e o carrinho do localStorage ao carregar a página
   useEffect(() => {
     async function fetchProdutos() {
       const res = await fetch('https://deisishop.pythonanywhere.com/products');
@@ -29,7 +28,6 @@ export default function ProdutosPage() {
     }
   }, []);
 
-  // Salva o carrinho no localStorage sempre que ele for atualizado
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
